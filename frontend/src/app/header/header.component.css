@@ -1,0 +1,77 @@
+/* header.component.css */
+
+/* General header style */
+header {
+  background-color: #181B3A; /* Dark background color */
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  color: white; /* White text color */
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0; /* Space around the logo */
+  padding-left: 20px;
+}
+.logo i {
+  font-size: 2rem; /* Smaller icon size */
+  color: #fff; /* White logo */
+}
+
+/* Search input container style */
+.search .input-container {
+  display: flex; /* Flexbox to align input and icon horizontally */
+  align-items: center; /* Vertically center the input and button */
+  width: 350px;
+  max-width: 300px; /* Max width for the search input */
+  margin: 0 auto; /* Center the search bar */
+  position: relative; /* For positioning the icon inside */
+}
+
+.search input {
+  flex: 1; /* Allow input to take available space */
+  padding: 8px 15px; /* Padding inside the input */
+  border-radius: 20px; /* Rounded corners */
+  border: 1px solid #ced4da; /* Border color */
+  background-color: #090D28; /* Matching background color */
+  color: white; /* White text inside the input */
+}
+
+/* Make the placeholder text white */
+.search input::placeholder {
+  color: white; /* White color for the placeholder */
+}
+
+/* Search button (with the icon inside the input) */
+.search .search-btn {
+  position: absolute;
+  right: 10px; /* Align the button to the right inside the input */
+  background-color: transparent; /* Transparent background for the button */
+  border: none; /* Remove the border */
+  padding: 0;
+  color: white; /* White color for the icon */
+}
+
+.search .search-btn i {
+  font-size: 1.2rem; /* Icon size */
+}
+
+/* Notification icon style */
+.bi-bell {
+  font-size: 1.5rem; /* Notification icon size */
+  color: white; /* White color */
+}
+
+/* Profile icon style */
+.fas.fa-user-circle {
+  color: white; /* Profile icon color */
+}
+
+/* Spacing between notification and profile icons */
+.actions button {
+  margin-left: 50px; /* Increase the margin to space out the icons */
+}
+
+

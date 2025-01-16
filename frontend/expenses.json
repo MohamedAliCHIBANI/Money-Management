@@ -1,0 +1,7 @@
+{
+    "expenses": [
+      { "id": 1, "category": "Food", "amount": 50, "description": "Groceries", "date": "2024-12-01T00:00:00.000Z" },
+      { "id": 2, "category": "Housing", "amount": 500, "description": "Rent", "date": "2024-12-01T00:00:00.000Z" }
+    ]
+  }
+  

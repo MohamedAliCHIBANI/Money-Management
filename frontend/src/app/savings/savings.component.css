@@ -1,0 +1,159 @@
+/* Uniform Block Styling */
+.block {
+  background-color: #181B3A; /* Match Expenses block color */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Consistent shadow */
+  height: 100%; /* Match Expenses section height */
+}
+h2.text-center {
+  margin-top: 10px; /* Align header closer to the top */
+  margin-bottom: 20px; /* Add some spacing below the header */
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  
+}
+/* Form Control Styling */
+.form-control {
+  background-color: #2C3350; /* Match input background to Expenses */
+  color: white;
+  border: 1px solid #444;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #01D492; /* Matching focus color */
+  box-shadow: 0 0 5px rgba(1, 212, 146, 0.5);
+}
+
+/* Button Styling */
+.custom-btn {
+  background-color: #3E5879; /* Match button color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.custom-btn:hover {
+  background-color: #4B6B8C; /* Hover effect */
+}
+
+/* Progress Bar Styling */
+.progress {
+  background-color: #181B3A; /* Match Expenses block */
+  border-radius: 5px;
+  height: 20px; /* Uniform height */
+}
+
+.progress-bar {
+  background-color: #01D492; /* Consistent progress color */
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+/* Text Styling */
+.text-white {
+  color: #fff;
+}
+
+/* Responsive Design (if needed) */
+@media (max-width: 768px) {
+  .block {
+    padding: 15px;
+  }
+
+  .custom-btn {
+    font-size: 14px;
+  }
+}
+/* Block Styling */
+.block {
+  background-color: #181B3A; /* Match Expenses block color */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Consistent shadow */
+  height: 100%; /* Match height */
+}
+
+/* Form Control Styling */
+.form-control {
+  background-color: #1E293B; /* Match input background to Expenses */
+  color: white;
+  border: 1px solid #334155;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #38BDF8; /* Matching focus color */
+  box-shadow: 0 0 5px rgba(56, 189, 248, 0.5);
+}
+
+/* Button Styling */
+.custom-btn {
+  background-color: #334155; /* Match button color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.custom-btn:hover {
+  background-color: #475569; /* Hover effect */
+}
+
+/* Progress Bar Styling */
+.progress {
+  background-color: #334155; /* Match Expenses block */
+  border-radius: 5px;
+  height: 20px; /* Uniform height */
+}
+
+.progress-bar {
+  background-color: #38BDF8; /* Consistent progress color */
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+/* Text Styling */
+.text-white {
+  color: #fff;
+  font-size: 16px; /* Standardize text size */
+}
+
+h2, h3, h5 {
+  text-align: center; /* Align headers to match positions */
+  font-size: 18px; /* Adjust header sizes */
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 14px; /* Consistent paragraph font size */
+}
+
+/* Responsive Design (if needed) */
+@media (max-width: 768px) {
+  .block {
+    padding: 15px;
+  }
+
+  .custom-btn {
+    font-size: 14px;
+  }
+
+  h2, h3, h5 {
+    font-size: 16px; /* Adjust for smaller screens */
+  }
+
+  p {
+    font-size: 12px;
+  }
+}
+

@@ -1,0 +1,182 @@
+/* Main container for the profile page */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    
+    color: #fff; /* White text */
+    padding: 10px;
+  }
+  
+  /* Card style for the profile form */
+  .profile-card {
+    
+    background-color: #111637; /* Slightly lighter than the menu background */
+    
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: 60%;
+    max-width: 500px;
+    height: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Add some space between elements */
+  }
+  
+  /* Title */
+  h1 {
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 2rem; /* Larger title for emphasis */
+  }
+  
+  /* Form styles */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Add some space between input fields */
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    color: #ddd;
+  }
+  
+  label i {
+    margin-right: 10px; /* Space between icon and label */
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #1c233e;
+    color: #fff;
+    font-size: 1rem;
+  }
+  
+  input:focus {
+    outline: none;
+    border-color: #01D492; /* Same hover color as menu links */
+  }
+  
+  input[readonly] {
+    background-color: #333;
+  }
+  
+  /* Edit/Cancel button */
+  .btn-edit {
+    background-color: #3E5879; /* Same as hover effect in the menu */
+    color: #fff;
+    padding: 12px;
+    width: 200px;
+    margin-top: 20px;
+    margin-left: 110px;
+    margin-right: auto;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-edit:hover {
+    background-color: #02b383; /* Slightly darker green for hover */
+  }
+  
+  /* Save button */
+  .btn-primary {
+    background-color: #3E5879; /* Same as hover effect in the menu */
+    color: #fff;
+    padding-left: 50px;
+    width: 200px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-primary:hover {
+    background-color: #02b383; /* Slightly darker green for hover */
+  }
+  
+  /* Responsive styles for smaller screens */
+  @media (max-width: 768px) {
+    .profile-card {
+      width: 80%;
+      padding: 20px;
+      height: auto;
+    }
+  
+    .btn-primary, .btn-edit {
+      width: 100%; /* Full width button on smaller screens */
+      margin-left: 0;
+      margin-right: 0;
+    }
+  
+    h1 {
+      font-size: 1.5rem; /* Smaller font for smaller screens */
+    }
+  
+    .form-group label {
+      font-size: 0.9rem; /* Smaller label font */
+    }
+  
+    .form-control {
+      font-size: 0.9rem; /* Smaller input font */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .profile-container {
+      padding: 10px; /* Reduce padding for mobile */
+    }
+  
+    .profile-card {
+      width: 100%; /* Full width card for very small screens */
+    }
+  
+    h1 {
+      font-size: 1.2rem; /* Even smaller title for mobile */
+    }
+  
+    .btn-primary, .btn-edit {
+    
+      padding: 10px;
+      font-size: 1rem; /* Adjust button font size */
+    }
+  }
+  /* Password container to align the input field and the icon */
+.password-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .password-container i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ccc;
+    font-size: 1.2rem;
+  }
+  
+  .password-container input {
+    padding-right: 35px; /* Add space for the icon */
+  }
+  

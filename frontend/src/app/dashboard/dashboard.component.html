@@ -1,0 +1,132 @@
+<div class="container">
+
+    <div class="cards">
+        <a (click)="navigateTo('/savings')">
+        <div class="card">
+            <div class="card-body">
+                <div class="icons-container">
+                    <div class="icon-container">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <i class="fa-solid fa-arrow-trend-up" style="color: white;"></i>
+                </div>
+                <div>
+                    <p class="card-text">Total Balance</p>
+
+                    <h4 class="card-text">${{totalBalance}}</h4>
+                </div>
+            </div>
+        
+        </div>
+    </a>
+    <a (click)="navigateTo('/savings')">
+        <div class="card">
+            <div class="card-body">
+                <div class="icon-container">
+                    <i class="fa-solid fa-dollar-sign"></i>
+                </div>
+
+                <p class="card-text">Income</p>
+                <h4 class="card-text">${{ totalIncome}}</h4>
+            </div>
+        </div>
+    </a>
+        <a (click)="navigateTo('/expenses')">
+            <div class="card">
+                <div class="card-body">
+                    <div class="icon-container">
+                        <i class="fa-solid fa-money-bill"></i>
+                    </div>
+                    <p class="card-text">Expenses</p>
+                    <h4 class="card-text">${{ totalExpenses }}</h4>
+
+                </div>
+            </div>
+        </a>
+        <a (click)="navigateTo('/savings')">
+        <div class="card">
+            <div class="card-body">
+                <div class="icon-container">
+                    <i class="fa-solid fa-dollar-sign"></i>
+                </div>
+                <p class="card-text">Savings</p>
+                <h4 class="card-text">${{totalSavings}}</h4>
+            </div>
+        </div>
+    </a>
+    </div>
+
+    <div class="statistics">
+        <div class="chart-container">
+            <h3 class="title">All Expenses</h3>
+            <div class="chart-and-legend">
+                <div class="donutChart">
+                    <canvas baseChart width="300" height="130" [data]="donutChartData" [options]="donutChartOptions"
+                        [type]="donutChartType" [legend]="false">
+                    </canvas>
+                </div>
+                <div>
+                    <ul class="legend-list">
+                        <li class="legend-item">
+                            <div class="legend-color food"></div>
+                            Food
+                        </li>
+                        <li class="legend-item">
+                            <div class="legend-color housing"></div>
+                            Housing
+                        </li>
+                        <li class="legend-item">
+                            <div class="legend-color utilities"></div>
+                            Utilities
+                        </li>
+                        <li class="legend-item">
+                            <div class="legend-color transport"></div>
+                            Transport
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="EarningFlow">
+            <h3 class="title">Earning Flow</h3>
+            <div class="EarningFlowChart">
+
+                <canvas baseChart width="450" height="170" [type]="'line'" [data]="lineChartData"
+                    [options]="lineChartOptions" [legend]="lineChartLegend">
+
+                </canvas>
+            </div>
+
+        </div>
+    </div>
+    <div class="Transaction-cardinfo">
+        <div class="Recent-Transaction">
+          <h3 class="title">Recent Transaction</h3>
+          <div class="call-history-container">
+            <ul>
+              <li *ngFor="let expense of recentExpenses" class="call-history-item">
+                <div class="call-details">
+                  <span class="call-name">{{ expense.category }}</span>
+                  <span class="call-time">{{ expense.date | date: 'shortDate' }}</span>
+                </div>
+                <div class="call-type">{{ expense.amount | currency }}</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="Card-info">
+            <h3 class="title">Card Information</h3>
+            <div class="cardInfoContainer">
+                <ul>
+                    <li *ngFor="let detail of cardDetails" class="cardInformation">
+                        <div class="card-details">
+                            <span class="call-name">{{ detail.name }}</span>
+                        </div>
+                        <div class="card-type" [ngStyle]="{'color': detail.type === 'Active' ? 'green' : ''}">{{
+                            detail.type }}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

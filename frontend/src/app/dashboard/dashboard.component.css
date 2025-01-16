@@ -1,0 +1,287 @@
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    margin-left: 4px;
+}
+
+.card {
+    width: 16rem;
+    height: 8.9rem;
+    margin-right: 30px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: none;
+    box-shadow: none;
+    background: linear-gradient(to right, #de4722, #d5354f, #5f083c);
+    border-radius: 10px;
+    cursor: pointer; /* Makes the card clickable */
+    transition: transform 0.2s; /* Adds a transition effect */
+
+    /* Optional: Add a hover effect */
+    &:hover {
+        transform: scale(1.05); /* Slightly enlarges the card on hover */
+    }
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    text-align: left;
+}
+
+
+
+.icon-container {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.icons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.card-text {
+    margin-top: 5px;
+    color: #ffffff;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.chart-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    width: 470px;
+    height: 225px;
+    background-color: #090D28;
+    border-radius: 7px;
+    color: #ffffff;
+    margin-right:20px ;
+    margin-left: 4px;
+
+
+}
+
+.pie-chart-background {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: left;
+    border-radius: 20px;
+    background-color: #090D28;
+    
+
+}
+
+.pie-chart {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: right;
+    width: 220px;
+    height: 150px;
+    background-color: #090D28;
+    border-radius: 50%;
+    color: #ffffff;
+}
+
+.title {
+    margin-left: 30px;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.legend-list {
+    list-style: none;
+    padding-top: 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.food {
+    background-color: #4caf50;
+}
+
+/* Vert pour Nourriture */
+.housing {
+    background-color: #ffeb3b;
+}
+
+/* Jaune pour Logement */
+.utilities {
+    background-color: #f44336;
+}
+
+/* Rouge pour Services publics */
+.transport {
+    background-color: #2196f3;
+}
+
+/* Bleu pour Transport */
+.chart-and-legend {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: left;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+.statistics {
+    display: flex;
+    flex-direction: row;
+    
+
+}
+.EarningFlow{
+    background-color: #090D28;
+    border-radius: 7px;
+    color: #ffffff;
+    width: 630px;
+}
+.EarningFlowChart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.Transaction-cardinfo{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+   
+}
+.Recent-Transaction{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    margin-left: 4px;
+    margin-top: 4px;
+    width: 630px;
+    height: 210px;
+    background-color: #090D28;
+    border-radius: 7px;
+    color: #ffffff;
+}
+.Card-info{
+    display: flex;
+    flex-direction: column;
+    background-color: #090D28;
+    color: #ffffff;
+    border-radius: 7px;
+    width:470px;
+    height: 200px;
+    margin-left: 20px;
+    
+}
+
+.call-history-container {
+    padding: 20px;
+    background-color: #090D28;
+    
+    border-radius: 5px;
+  }
+  
+  h2 {
+    color: #333;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .call-history-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  li:last-child {
+    border-bottom: none;
+  }
+  
+  .call-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .call-name {
+    font-weight: bold;
+  }
+  
+  .call-time {
+    color: #888;
+  }
+  
+  .call-type {
+    font-style: italic;
+    color: #555;
+  }
+
+  .cardInfoContainer {
+    padding: 17px;
+    background-color: #090D28;
+    border-radius: 5px;
+  }
+  
+  .cardInformation {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    color: white;
+  }
+
+  .card-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-type {
+    font-style: italic;
+    color: #555;
+  }

@@ -1,0 +1,121 @@
+/* Main container and content */
+.main-container {
+  margin-top: 60px; /* Adjust for header space */
+  padding: 20px;
+  margin: 40px;
+  background-color: #181B3A; /* Dark background color */
+  border-radius: 8px; /* Optional: Add rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow for 3D effect */
+  color: white; /* White text for contrast */
+}
+
+h2.text-center {
+  margin-top: 10px; /* Align header closer to the top */
+  margin-bottom: 20px; /* Add some spacing below the header */
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  
+}
+
+/* Content area */
+.content {
+  padding: 30px;
+  color: white; /* Ensure text is white for readability */
+}
+
+/* Form styles */
+.form-label {
+  font-weight: bold;
+  color: white; /* White text for labels */
+}
+
+.form-control {
+  background-color: #2C3350 !important; /* Darker background for inputs */
+  color: #fff; /* White text for inputs */
+  border: 1px solid #444; /* Light border to contrast with dark background */
+}
+
+.form-control:focus {
+  border-color: #01D492; /* Focus border color */
+  box-shadow: 0 0 0 0.25rem rgba(38, 143, 255, 0.5); /* Focus shadow */
+}
+
+input::placeholder {
+  color: #aaa; /* Light grey color for placeholders */
+}
+
+/* Dropdown Menu Styles */
+.dropdown-toggle {
+  background-color: #2C3350; /* Dark background for dropdown button */
+  color: #fff; /* White text color */
+  border: 1px solid #444; /* Light border to contrast */
+}
+
+.dropdown-menu {
+  background-color: #2C3350; /* Dark background for dropdown items */
+  border: 1px solid #444; /* Light border for dropdown */
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdown-item {
+  color: #fff; /* White text for items */
+}
+
+.dropdown-item:hover {
+  background-color: #444; /* Hover effect for items */
+}
+
+/* Custom Button */
+.custom-btn {
+  margin-top: 30px;
+  margin-left: 400px;
+  margin-right: 400px;
+  background-color: #3E5879; /* Green button color */
+  color: white; /* White text for button */
+  border: none; /* Remove the border */
+  padding: 10px 20px; /* Add padding */
+  font-size: 16px; /* Set font size */
+  cursor: pointer; /* Change cursor to pointer */
+  display: block; /* Ensure it takes full width if needed */
+  width: 15%; /* Full width for button */
+}
+
+.custom-btn:hover {
+  background-color: #3E5879; /* Darker green on hover */
+}
+
+/* Table Styles */
+.table {
+  margin-top: 70px;
+  background-color: #2C3350; /* Dark background for table */
+  border-radius: 8px;
+  border-color: #3E5879; /* Light border color */
+}
+
+.table th {
+  background-color: #3E5879; /* Darker header background */
+  color: white; /* White text for table headers */
+  text-align: center;
+}
+
+.table td {
+  vertical-align: middle;
+  text-align: center;
+  border-color: #444; /* Border color for table cells */
+}
+
+.table tbody {
+  border-color: #444;
+}
+
+/* Table Hover Effect */
+.table-hover tbody tr:hover {
+  background-color: #3e4a68; /* Darker row on hover */
+}
+
+
+
+
+

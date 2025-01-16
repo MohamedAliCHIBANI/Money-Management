@@ -1,0 +1,73 @@
+/* app.component.css */
+
+/* Basic Layout Setup */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full height of the viewport */
+    background: linear-gradient(135deg, #090D28, #483D8B); /* Violet gradient effect */
+}
+
+.main-content {
+    height: 100%;
+    flex-direction: row;
+    display: flex;
+    flex: 1; /* Takes up the remaining space */
+    overflow: hidden;
+}
+
+.menu {
+    width: 250px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 500;
+    background: rgba(72, 61, 139, 0.8); /* Semi-transparent violet */
+    backdrop-filter: blur(10px); /* Subtle blur effect for the violet */
+    transition: all 0.3s ease;
+}
+
+.content-area {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: linear-gradient(135deg, #090D28, #483D8B); /* Violet gradient effect */
+    transition: all 0.3s ease;
+}
+
+/* Responsive Styles for Smaller Screens */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column; /* Stack content vertically */
+    }
+
+    .menu {
+        width: 100%; /* Make menu full width */
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        height: 100vh;
+        display: none; /* Initially hide the menu */
+    }
+
+    .menu.show {
+        display: block; /* Show menu when class is added */
+    }
+
+    .content-area {
+        padding: 0px;
+        margin-top: 0px; /* Adjust content to avoid menu overlap */
+    }
+}
+
+/* For medium screens (tablets) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .menu {
+        width: 200px;
+    }
+
+    .content-area {
+        padding: 15px;
+    }
+}
+
+  

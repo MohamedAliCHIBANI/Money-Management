@@ -1,0 +1,101 @@
+nav {
+  position: fixed;
+  height: 100%;
+  width: 250px; /* Sidebar width */
+  background-color: #181B3A; /* Dark background color */
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space between menu items and logout button */
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin: 25px 0; /* Vertical spacing between menu items */
+}
+
+.dashboard {
+  /* Lower the dashboard link */
+}
+
+a {
+  display: flex;
+  align-items: center; /* Align items horizontally */
+  text-decoration: none;
+  color: #fff !important; /* Set text color to white */
+  font-size: 1.1rem; /* Slightly larger font size */
+  padding: 12px; /* Padding around each menu item */
+  border-radius: 8px; /* Rounded corners on hover */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+a i {
+  margin-right: 20px; /* Space between the icon and text */
+  font-size: 1.5rem; /* Icon size */
+  color: #fff !important; /* Ensure icon is white by default */
+}
+
+/* Hover effect */
+a:hover {
+  background-color: #3E5879; /* Blue background on hover */
+  color: white !important; /* White text and icon on hover */
+}
+
+a:hover i {
+  color: white !important; /* White icon on hover */
+}
+
+/* Active link style */
+a.router-link-active {
+  background-color: #0056b3; /* Darker blue when the link is active */
+}
+
+nav ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Ensure the icon is aligned to the left */
+}
+
+/* Logout button at the bottom */
+.logout {
+  margin-top: auto; /* Push logout button to the bottom */
+  padding: 20px; /* Add padding for spacing */
+  background-color: #181B3A; /* Match sidebar background */
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align icon and text */
+  text-decoration: none;
+  background-color: transparent;
+  color: #fff !important; /* White text */
+  font-size: 1.1rem;
+  padding: 12px 20px;
+  border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s;
+  border: none;
+  width: 100%;
+}
+
+.logout-btn i {
+  margin-right: 20px;
+  font-size: 1.5rem;
+}
+
+/* Hover effect for logout button */
+.logout-btn:hover {
+  background-color: #3E5879; /* Blue background on hover */
+  color: white !important;
+}
+
+.logout-btn:hover i {
+  color: white !important; /* White icon on hover */
+}
+

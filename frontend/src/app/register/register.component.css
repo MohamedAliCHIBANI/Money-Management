@@ -1,0 +1,87 @@
+/* Main Container */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: radial-gradient(circle, #0a1328, #111637, #1d144b);
+    overflow: hidden;
+    position: relative;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Register Card */
+  .register-card {
+    background: rgba(17, 22, 55, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    max-width: 450px;
+    width: 100%;
+    animation: slideIn 1s ease-out;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 10;
+  }
+  
+  /* Form Elements */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #fff;
+  }
+  
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  input:focus {
+    outline: none;
+    border-color: #8a2be2; /* Violet focus */
+    transform: scale(1.03);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px #8a2be2;
+  }
+  
+  /* Button */
+  .btn-primary {
+    background: linear-gradient(135deg, #483d8b, #8a2be2);
+    color: #fff;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-3px) scale(1.05);
+    background: linear-gradient(135deg, #8a2be2, #483d8b);
+    box-shadow: 0 10px 20px rgba(138, 43, 226, 0.6);
+  }
+  h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+  }  

@@ -1,0 +1,87 @@
+<div class="container">
+  <h2 class="text-center text-white">Savings Management</h2>
+  
+  <div class="row">
+    <!-- Savings Goal Form -->
+    <div class="col-md-6">
+      <div class="block">
+        <h3 class="text-white">Savings Goal</h3>
+        <form [formGroup]="savingsForm" (ngSubmit)="onSaveGoal()">
+          <div class="form-group">
+            <label for="goal" class="text-white">Savings Goal ($)</label>
+            <input id="goal" type="number" class="form-control" formControlName="goal" />
+          </div>
+          <div class="form-group">
+            <label for="current" class="text-white">Add Savings ($)</label>
+            <input id="current" type="number" class="form-control" formControlName="current" />
+          </div>
+          <button type="submit" class="btn custom-btn mt-3" [disabled]="savingsForm.invalid">Set Savings Goal</button>
+        </form>
+        <div *ngIf="savingsGoal > 0">
+          <h5 class="mt-4 text-white">Goal Progress</h5>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" [style.width.%]="progress" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax="100">
+              {{ progress | number: '1.0-0' }}%
+            </div>
+          </div>
+          <p *ngIf="progress === 100" class="text-success mt-2">Congratulations! You've reached your goal!</p>
+          
+          <!-- Add Savings Button -->
+          <button class="btn custom-btn mt-3" (click)="addMoreSavings()">Add More Savings</button>
+
+          <!-- Display Current Savings -->
+          <div *ngIf="currentSavings > 0">
+            <h5 class="mt-4 text-white">Current Savings: ${{ currentSavings }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Income Form -->
+    <div class="col-md-6">
+      <div class="block">
+        <h3 class="text-white">Monthly Income</h3>
+        <form [formGroup]="incomeForm" (ngSubmit)="onSetIncome()">
+          <div class="form-group">
+            <label for="income" class="text-white">Monthly Income ($)</label>
+            <input id="income" type="number" class="form-control" formControlName="income" />
+          </div>
+          <button type="submit" class="btn custom-btn mt-3" [disabled]="incomeForm.invalid">Set Income</button>
+        </form>
+
+        <!-- Add Income Button -->
+        <button class="btn custom-btn mt-3" (click)="addIncome()">Add Income</button>
+
+        <!-- Display Current Income -->
+        <div *ngIf="monthlyIncome > 0" class="mt-4 text-white">
+          <h5>Your Current Income: ${{ monthlyIncome }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <!-- Budget Form -->
+    <div class="col-md-6">
+      <div class="block">
+        <h3 class="text-white">Monthly Expenses</h3>
+        <div class="form-group">
+          <label for="expenses" class="text-white">Monthly Expenses ($)</label>
+          <p id="expenses" class="form-control-static text-white">{{ monthlyExpenses }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monthly Budget Calculation -->
+    <div class="col-md-6">
+      <div class="block">
+        <h3 class="text-white">Your Monthly Budget</h3>
+        <div *ngIf="monthlyIncome > 0 && monthlyExpenses >= 0" class="mt-4 text-white">
+          <p>Income: ${{ monthlyIncome }}</p>
+          <p>Expenses: ${{ monthlyExpenses }}</p>
+          <p><strong>Remaining Budget: ${{ monthlyBudget >= 0 ? monthlyBudget : 0 }}</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
