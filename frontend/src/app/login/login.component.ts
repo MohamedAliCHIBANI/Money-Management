@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { RegisterComponent } from '../register/register.component'; // Import the RegisterComponent
 
@@ -8,30 +10,32 @@ import { RegisterComponent } from '../register/register.component'; // Import th
   standalone: true,  // Standalone component flag
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [FormsModule,RegisterComponent]  // Import FormsModule to use ngModel
+  imports: [FormsModule, RouterModule]  // Import FormsModule to use ngModel
 })
 export class LoginComponent {
-
   username: string = '';
   password: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {}
 
   onLogin(): void {
-    if (this.username === 'user' && this.password === 'user') {
-      sessionStorage.setItem('isLoggedIn', 'true'); // Set login status
-      this.router.navigate(['/dashboard']); // Redirect to dashboard on success
-    } else {
-      alert('Invalid credentials');
-    }
+    // Send credentials to backend to get the token
+    this.http.post<any>('http://localhost:3000/user/login', { username: this.username, password: this.password }).subscribe(
+      (response) => {
+        // Save the token in sessionStorage (or localStorage)
+        sessionStorage.setItem('authToken', response.token);
+
+        // Set login status and navigate
+        sessionStorage.setItem('isLoggedIn', 'true');
+        this.router.navigate(['/dashboard']);
+      },
+      (error) => {
+        alert('Invalid credentials');
+      }
+    );
   }
+
   navigateTo(path: string): void {
-    this.router.navigate([path]); // Navigate to the selected path
+    this.router.navigate([path]);
   }
 }
-
-
-
-
-
-

@@ -169,7 +169,6 @@
 .statistics {
     display: flex;
     flex-direction: row;
-    
 
 }
 .EarningFlow{
@@ -212,8 +211,9 @@
     color: #ffffff;
     border-radius: 7px;
     width:470px;
-    height: 200px;
+    height: 210px;
     margin-left: 20px;
+    margin-top: 4px;   
     
 }
 
@@ -263,7 +263,7 @@
   }
 
   .cardInfoContainer {
-    padding: 17px;
+    padding: 20px;
     background-color: #090D28;
     border-radius: 5px;
   }
@@ -271,7 +271,7 @@
   .cardInformation {
     display: flex;
     justify-content: space-between;
-    padding: 5px;
+    padding: 4.8px;
     border-bottom: 1px solid #ddd;
     color: white;
   }
@@ -284,4 +284,19 @@
   .card-type {
     font-style: italic;
     color: #555;
+  }
+  .donutChart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 220px;
+    height: 150px;
+    background-color: #090D28;
+    border-radius: 50%;
+    color: #ffffff;
+  }
+  #expensesChart {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
   }

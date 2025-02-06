@@ -61,10 +61,8 @@
             <h3 class="title">All Expenses</h3>
             <div class="chart-and-legend">
                 <div class="donutChart">
-                    <canvas baseChart width="300" height="130" [data]="donutChartData" [options]="donutChartOptions"
-                        [type]="donutChartType" [legend]="false">
-                    </canvas>
-                </div>
+                    <canvas id="expensesChart"></canvas>
+                  </div>
                 <div>
                     <ul class="legend-list">
                         <li class="legend-item">

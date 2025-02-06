@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Chart, ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
+import { Chart, ChartConfiguration, ChartOptions, ChartType, registerables } from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
 import { Router } from '@angular/router';
 import { ExpenseService } from '../services/expenses.service';
@@ -9,6 +9,7 @@ import { SavingsService } from '../services/savings.service';
 import { Expense } from '../models/expense.model';
 import { HttpClientModule } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -47,7 +48,7 @@ export class DashboardComponent implements OnInit {
   };
 
   public lineChartOptions: ChartOptions = {
-    responsive: false,
+    responsive: true,
     maintainAspectRatio: false
   };
 
@@ -85,31 +86,69 @@ export class DashboardComponent implements OnInit {
       opacity: 0
     }
   };
+  donutchart!: Chart;
+  expensesByCategory: { category: string; amount: number }[] = [];
+  private expensesSubject = new BehaviorSubject<{ category: string; amount: number }[]>([]);
+  
+  
+  updateExpensesByCategory(): void {
+    const categories = ['Housing', 'Food', 'Transport', 'Utilities'];
+    const expenses: { category: string; amount: number }[] = [];
 
-  // Static donut chart configuration
-  public donutChartData: ChartConfiguration['data'] = {
-    labels: ['Food', 'Housing', 'Utilities', 'Transport'],
-    datasets: [
-      {
-        data: [300, 500, 100, 200],
-        backgroundColor: ['#4caf50', '#ffeb3b', '#f44336', '#2196f3'],
-        hoverBackgroundColor: ['#4caf50', '#ffeb3b', '#f44336', '#2196f3']
-      }
-    ]
-  };
+    categories.forEach((category) => {
+      this.expenseService.getTotalAmountByCategory(category).subscribe(
+        (data) => {
+          expenses.push({ category, amount: data.totalAmount });
+          this.expensesSubject.next(expenses); // Update the expenses subject
+        },
+        (error) => {
+          console.error(`Error fetching total amount for category ${category}:`, error);
+        }
+      );
+    });
+  }
 
-  public donutChartOptions: ChartOptions = {
-    responsive: true,
-    maintainAspectRatio: false
-  };
 
-  public donutChartType: ChartType = 'doughnut';
+  createDonutchart(): void {
+    const canvas = <HTMLCanvasElement>document.getElementById('expensesChart');
+    const ctx = canvas?.getContext('2d');
 
-  public callHistory: { name: string, time: string, type: string }[] = [
-    { name: 'John Doe', time: '10:30 AM', type: 'Incoming' },
-    { name: 'Jane Smith', time: '11:00 AM', type: 'Outgoing' },
-    { name: 'Michael Brown', time: '12:15 PM', type: 'Missed' }
-  ];
+    if (ctx) {
+      this.donutchart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: this.expensesByCategory.map((item) => item.category),
+          datasets: [
+            {
+              data: this.expensesByCategory.map((item) => item.amount),
+              backgroundColor: [
+                '#ffeb3b', '#4caf50', '#2196f3', '#f44336',
+              ],
+              hoverBackgroundColor: [
+                '#ffeb3b', '#4caf50', '#2196f3', '#f44336',
+              ],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (tooltipItem) => {
+                  const value = tooltipItem.raw as number;
+                  return `${value} $`;
+                },
+              },
+            },
+          },
+        },
+      });
+    }
+  }
+
+
   public cardDetails: { name: string, type: string }[] = [
     { name: 'status', type: 'Active' },
     { name: 'card ', type: 'credit' },
@@ -125,15 +164,35 @@ export class DashboardComponent implements OnInit {
   totalBalance: number = 0;
   chart!: Chart;
 
-  constructor(private router: Router, private expenseService: ExpenseService, private savingsService: SavingsService) {}
+  constructor(private router: Router, private expenseService: ExpenseService, private savingsService: SavingsService) {  
+    Chart.register(...registerables);
+  }
 
   ngOnInit(): void {
     this.loadTotalExpenses();
     this.totalSavings = this.savingsService.getCurrentSavings();
-    this.totalIncome = this.savingsService.getCurrentIncome();
+    this.savingsService.fetchTotalIncomeForCurrentMonth().subscribe(
+      (income) => {
+        this.totalIncome = income;
+        this.calculateTotalBalance();
+      },
+      (error) => {
+        console.error('Error fetching total income for current month:', error);
+      }
+    );
     this.calculateTotalBalance();
     this.updateLineChartData();
     this.updateRecentExpenses();
+    this.updateExpensesByCategory();
+    this.createDonutchart();
+    this.expensesSubject.subscribe((expenses) => {
+      this.expensesByCategory = expenses;
+      if (this.donutchart) {
+        this.donutchart.data.labels = this.expensesByCategory.map((item) => item.category);
+        this.donutchart.data.datasets[0].data = this.expensesByCategory.map((item) => item.amount);
+        this.donutchart.update();
+      }
+    });
   }
 
   calculateTotalBalance(): void {
@@ -150,10 +209,17 @@ export class DashboardComponent implements OnInit {
         monthlyExpenses[month] += expense.amount;
       });
 
-      const incomeData = this.savingsService.getMonthlyIncomeData();
-      incomeData.forEach((income, index) => {
-        monthlyIncome[index] = income;
-      });
+      this.savingsService.fetchMonthlyIncomeData().subscribe(
+        (incomeData: number[]) => {
+          incomeData.forEach((income, index) => {
+            monthlyIncome[index] = income;
+          });
+        },
+        (error) => {
+          console.error('Error fetching monthly income data:', error);
+        }
+      );
+
 
       this.lineChartData.datasets[0].data = monthlyIncome;
       this.lineChartData.datasets[1].data = monthlyExpenses;

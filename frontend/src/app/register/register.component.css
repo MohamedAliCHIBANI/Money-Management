@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 130vh;
     background: radial-gradient(circle, #0a1328, #111637, #1d144b);
     overflow: hidden;
     position: relative;
@@ -84,4 +84,14 @@
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 30px;
-  }  
+  } 
+  .extra-links a {
+    color: #8a2be2;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+  } 
+  .extra-links a:hover {
+    color: #9370db;
+    cursor: pointer; /* Lighter violet */
+  }

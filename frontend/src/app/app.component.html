@@ -1,13 +1,10 @@
-<div *ngIf="isLoggedIn(); else loginTemplate">
+<div *ngIf="isLoggedIn(); else authTemplate">
   <app-layout></app-layout> <!-- Display LayoutComponent if logged in -->
 </div>
 
-<ng-template #loginTemplate>
-  <app-login></app-login> <!-- Display LoginComponent if not logged in -->
+<ng-template #authTemplate>
+  <router-outlet></router-outlet> <!-- Dynamically load Login or Register -->
 </ng-template>
 
-  
-  
-  
 
     
