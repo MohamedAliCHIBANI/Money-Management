@@ -10,7 +10,6 @@ import { Expense } from '../models/expense.model';
 import { HttpClientModule } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
-
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -22,6 +21,7 @@ import { BehaviorSubject } from 'rxjs';
 export class DashboardComponent implements OnInit {
   title = 'ng2-charts-demo';
 
+  // Décommenter et utiliser ces configurations pour le graphique en ligne
   public lineChartData: ChartConfiguration['data'] = {
     labels: [
       'January', 'February', 'March', 'April', 'May', 'June',
@@ -54,42 +54,23 @@ export class DashboardComponent implements OnInit {
 
   public lineChartLegend = true;
 
-  public apexChartOptions: any = {
-    series: [],
-    chart: {
-      type: 'line'
-    },
-    xaxis: {
-      categories: []
-    },
-    dataLabels: {
-      enabled: false
-    },
-    grid: {
-      show: false
-    },
-    stroke: {
-      curve: 'smooth'
-    },
-    title: {
-      text: 'Line Chart'
-    },
-    markers: {
-      size: 0
-    },
-    yaxis: {
-      title: {
-        text: 'Values'
-      }
-    },
-    fill: {
-      opacity: 0
+  // Méthode pour créer le graphique en ligne
+  createlinechart(): void {
+    const canvas = <HTMLCanvasElement>document.getElementById('EarningFlow');
+    const ctx = canvas?.getContext('2d');
+
+    if (ctx) {
+      this.chart = new Chart(ctx, {
+        type: 'line',
+        data: this.lineChartData,
+        options: this.lineChartOptions
+      });
     }
-  };
+  }
+
   donutchart!: Chart;
   expensesByCategory: { category: string; amount: number }[] = [];
   private expensesSubject = new BehaviorSubject<{ category: string; amount: number }[]>([]);
-  
   
   updateExpensesByCategory(): void {
     const categories = ['Housing', 'Food', 'Transport', 'Utilities'];
@@ -107,7 +88,6 @@ export class DashboardComponent implements OnInit {
       );
     });
   }
-
 
   createDonutchart(): void {
     const canvas = <HTMLCanvasElement>document.getElementById('expensesChart');
@@ -148,7 +128,6 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-
   public cardDetails: { name: string, type: string }[] = [
     { name: 'status', type: 'Active' },
     { name: 'card ', type: 'credit' },
@@ -185,6 +164,7 @@ export class DashboardComponent implements OnInit {
     this.updateRecentExpenses();
     this.updateExpensesByCategory();
     this.createDonutchart();
+    this.createlinechart(); // Appeler la méthode pour créer le graphique en ligne
     this.expensesSubject.subscribe((expenses) => {
       this.expensesByCategory = expenses;
       if (this.donutchart) {
@@ -214,15 +194,20 @@ export class DashboardComponent implements OnInit {
           incomeData.forEach((income, index) => {
             monthlyIncome[index] = income;
           });
+
+          // Mettre à jour les données du graphique en ligne
+          this.lineChartData.datasets[0].data = monthlyIncome;
+          this.lineChartData.datasets[1].data = monthlyExpenses;
+
+          // Mettre à jour le graphique en ligne si il existe
+          if (this.chart) {
+            this.chart.update();
+          }
         },
         (error) => {
           console.error('Error fetching monthly income data:', error);
         }
       );
-
-
-      this.lineChartData.datasets[0].data = monthlyIncome;
-      this.lineChartData.datasets[1].data = monthlyExpenses;
     });
   }
 

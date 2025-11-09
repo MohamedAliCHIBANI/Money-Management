@@ -11,8 +11,10 @@ const Expence = mongoose.model('Expence', {
     },
     date: {
         type: Date,
-        default : new Date()
+        default : Date.now
     },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    
   });
 
 

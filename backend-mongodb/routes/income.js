@@ -1,10 +1,15 @@
 const express = require('express');
 const incomeController = require('../controllers/incomeController');
+const { authenticateToken } = require('../middleware/auth');
 
 const router = express.Router();
 
+// Toutes les routes nécessitent l'authentification
+router.use(authenticateToken);
+
 // Get all incomes
 router.get('/All', incomeController.getAllIncomes);
+
 // Get total income for the current month
 router.get('/TotalIncomeCurrentMonth', incomeController.getTotalIncomeCurrentMonth);
 
@@ -19,6 +24,5 @@ router.put('/:id', incomeController.updateIncome);
 
 // Delete an income by ID
 router.delete('/:id', incomeController.deleteIncome);
-
 
 module.exports = router;
