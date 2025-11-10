@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'app-register',
@@ -39,17 +41,16 @@ export class RegisterComponent {
         currency: this.currency,
       },
     };
-
-    this.http.post('http://localhost:3000/user/add', userData).subscribe(
-      (response) => {
-        alert('Registration successful!');
-        this.router.navigate(['/login']);
-      },
-      (error) => {
-        console.error(error);
-        alert('An error occurred during registration.');
-      }
-    );
+this.http.post(`${environment.apiUrl}/user/add`, userData).subscribe(
+  (response) => {
+    alert('Registration successful!');
+    this.router.navigate(['/login']);
+  },
+  (error) => {
+    console.error(error);
+    alert('An error occurred during registration.');
+  }
+);
   }
   navigateTo(path: string): void {
     this.router.navigate([path]);

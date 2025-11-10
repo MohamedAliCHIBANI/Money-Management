@@ -1,22 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-
-import { bootstrapApplication } from '@angular/platform-browser';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-
-
+import { environment } from '../../environments/environment'; // 👈 ajout
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExpenseService {
-  private apiUrl = 'http://localhost:3000/Expence'; // Backend route for expenses
+  private apiUrl = `${environment.apiUrl}/Expence`; // 👈 basé sur env
 
   constructor(private http: HttpClient) {}
 
   addExpense(expense: { amount: number; date: string; category: string; description: string }): Observable<any> {
-    // Le backend lit l'utilisateur depuis le token, donc pas besoin d'ajouter `user`
     return this.http.post<any>(`${this.apiUrl}/ajout`, expense).pipe(
       catchError((error) => {
         console.error('Erreur lors de l’ajout de la dépense:', error);
@@ -43,16 +38,10 @@ export class ExpenseService {
     );
   }
 
- getTotalExpenses(): Observable<any> {
-    // 🔹 Récupérer le token du sessionStorage
+  getTotalExpenses(): Observable<any> {
     const token = sessionStorage.getItem('authToken');
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
 
-    // 🔹 Créer les headers avec le token
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
-    // 🔹 Envoyer la requête avec les headers
     return this.http.get<any>(`${this.apiUrl}/totalExpenses`, { headers }).pipe(
       catchError((error) => {
         console.error('Erreur lors de la récupération du total des dépenses:', error);

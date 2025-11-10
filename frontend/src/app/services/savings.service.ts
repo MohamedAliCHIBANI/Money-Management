@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-
+import { environment } from '../../environments/environment'; 
 
 @Injectable({
   providedIn: 'root',
 })
 export class SavingsService {
-  private apiUrl = 'http://localhost:3000/income';
+  private apiUrl = `${environment.apiUrl}/income`; 
   private currentSavingsSubject = new BehaviorSubject<number>(0);
   currentSavings$ = this.currentSavingsSubject.asObservable();
 
@@ -27,7 +25,6 @@ export class SavingsService {
     return this.currentSavingsSubject.getValue();
   }
 
-  // ✅ Total income for the current month
   fetchTotalIncomeForCurrentMonth(): Observable<number> {
     return this.http
       .get<{ totalIncome: number }>(`${this.apiUrl}/TotalIncomeCurrentMonth`)
@@ -47,7 +44,6 @@ export class SavingsService {
     return this.currentIncomeSubject.getValue();
   }
 
-  // ✅ Fetch all incomes of the logged-in user
   fetchAllIncome(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/All`).pipe(
       catchError((error) => {
@@ -57,29 +53,23 @@ export class SavingsService {
     );
   }
 
-  // ✅ Add a new income (no need to send user ID)
-addIncome(value: number, date: string): Observable<any> {
-  // Récupère le token depuis sessionStorage
-  const token = sessionStorage.getItem('authToken');
+  addIncome(value: number, date: string): Observable<any> {
+    const token = sessionStorage.getItem('authToken');
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
 
-  // Définit le header Authorization
-  const headers = { Authorization: `Bearer ${token}` };
+    return this.http.post<any>(`${this.apiUrl}/Add`, { value, date }, { headers }).pipe(
+      map((response) => {
+        console.log('Income ajouté avec succès:', response);
+        this.fetchTotalIncomeForCurrentMonth().subscribe();
+        return response;
+      }),
+      catchError((error) => {
+        console.error('Erreur lors de l’ajout du revenu:', error);
+        return throwError(() => error);
+      })
+    );
+  }
 
-  return this.http.post<any>(`${this.apiUrl}/Add`, { value, date }, { headers }).pipe(
-    map((response) => {
-      console.log('Income ajouté avec succès:', response);
-      this.fetchTotalIncomeForCurrentMonth().subscribe();
-      return response;
-    }),
-    catchError((error) => {
-      console.error('Erreur lors de l’ajout du revenu:', error);
-      return throwError(() => error);
-    })
-  );
-}
-
-
-  // ✅ Generate monthly data from all incomes
   fetchMonthlyIncomeData(): Observable<number[]> {
     return this.fetchAllIncome().pipe(
       map((incomes) => {
