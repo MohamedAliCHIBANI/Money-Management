@@ -1,6 +1,8 @@
 // middleware/auth.js
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = '123456789';
+require('dotenv').config(); // <-- ajout pour charger les variables d'environnement
+
+const SECRET_KEY = process.env.JWT_SECRET; // <-- récupère la clé depuis .env
 
 exports.authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];

@@ -1,9 +1,25 @@
+// config/connect.js
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/moneyMangement')
-.then(()=>{
-    console.log('Connection successful');
-})  .catch((e)=>{    
-    console.log('No connection');
-});
+require('dotenv').config();
+
+const MONGO_URI = process.env.MONGO_URI;
+
+if (!MONGO_URI) {
+  console.error('❌ Erreur : la variable MONGO_URI n\'est pas définie.');
+  process.exit(1);
+}
+
+mongoose
+  .connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log('✅ Connexion à MongoDB réussie');
+  })
+  .catch((error) => {
+    console.error('❌ Erreur de connexion MongoDB :', error.message);
+    process.exit(1);
+  });
 
 module.exports = mongoose;
