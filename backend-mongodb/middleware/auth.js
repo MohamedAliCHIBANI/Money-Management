@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config(); // <-- ajout pour charger les variables d'environnement
 
 const SECRET_KEY = process.env.JWT_SECRET; // <-- récupère la clé depuis .env
+console.log("JWT secret:", process.env.JWT_SECRET);
+
 
 exports.authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
