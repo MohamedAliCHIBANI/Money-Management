@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
-
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 // Add a new user
 exports.addUser = async (req, res) => {
@@ -99,8 +100,9 @@ exports.deleteUser = async (req, res) => {
     }
 };
 
-const jwt = require('jsonwebtoken'); // Import JWT library
-const SECRET_KEY = '123456789'; // Replace with your own secret key
+
+// Lire le secret depuis la variable d'environnement Render
+const SECRET_KEY = process.env.JWT_SECRET; 
 
 exports.loginUser = async (req, res) => {
     try {
