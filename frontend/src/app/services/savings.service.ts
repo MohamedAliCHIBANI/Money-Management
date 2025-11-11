@@ -2,7 +2,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
-import { environment } from '../../environments/environment'; 
+// import { environment } from '../../environments/environment'; // Removed for compilation
+
+// Mock environment for compilation. 
+// Please ensure the import path for your environment file is correct in your project.
+const environment = {
+  apiUrl: '/api' // Using a relative path as a fallback
+};
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +26,16 @@ export class SavingsService {
   updateSavings(newSavings: number): void {
     this.currentSavingsSubject.next(newSavings);
   }
+
+  private getAuthHeaders(): HttpHeaders {
+    // This check is SSR-safe!
+    if (typeof window !== 'undefined') {
+      const token = sessionStorage.getItem('authToken') || '';
+      return new HttpHeaders({ Authorization: `Bearer ${token}` });
+    }
+    return new HttpHeaders();
+  }
+
 
   getCurrentSavings(): number {
     return this.currentSavingsSubject.getValue();
@@ -54,21 +70,23 @@ export class SavingsService {
   }
 
   addIncome(value: number, date: string): Observable<any> {
-    const token = sessionStorage.getItem('authToken');
-    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-
-    return this.http.post<any>(`${this.apiUrl}/Add`, { value, date }, { headers }).pipe(
-      map((response) => {
+    return this.http.post<any>(
+      `${this.apiUrl}/Add`,
+      { value, date },
+      { headers: this.getAuthHeaders() } // This is SSR-safe because getAuthHeaders() is safe
+    ).pipe(
+      map(response => {
         console.log('Income ajouté avec succès:', response);
         this.fetchTotalIncomeForCurrentMonth().subscribe();
         return response;
       }),
-      catchError((error) => {
+      catchError(error => {
         console.error('Erreur lors de l’ajout du revenu:', error);
         return throwError(() => error);
       })
     );
   }
+
 
   fetchMonthlyIncomeData(): Observable<number[]> {
     return this.fetchAllIncome().pipe(

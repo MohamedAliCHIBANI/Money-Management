@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
+  production: false,
   apiUrl: 'https://money-management-4d6w.onrender.com' // URL Render backend
 };

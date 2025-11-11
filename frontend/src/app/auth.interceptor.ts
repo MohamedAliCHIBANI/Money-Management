@@ -1,7 +1,12 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = sessionStorage.getItem('authToken');
+  let token = '';
+
+  // Vérifie que l'on est côté navigateur
+  if (typeof window !== 'undefined') {
+    token = sessionStorage.getItem('authToken') || '';
+  }
 
   if (token) {
     const cloned = req.clone({

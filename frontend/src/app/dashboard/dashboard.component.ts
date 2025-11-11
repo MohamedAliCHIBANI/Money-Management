@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common'; // Import isPlatformBrowser
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Chart, ChartConfiguration, ChartOptions, ChartType, registerables } from 'chart.js';
-import { NgChartsModule } from 'ng2-charts';
+// import { NgChartsModule } from 'ng2-charts'; // Removed this import
 import { Router } from '@angular/router';
 import { ExpenseService } from '../services/expenses.service';
 import { SavingsService } from '../services/savings.service';
@@ -13,12 +13,12 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, NgChartsModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule], // Removed NgChartsModule here
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit { // Implement AfterViewInit
   title = 'ng2-charts-demo';
 
   // Décommenter et utiliser ces configurations pour le graphique en ligne
@@ -56,6 +56,7 @@ export class DashboardComponent implements OnInit {
 
   // Méthode pour créer le graphique en ligne
   createlinechart(): void {
+    // This check is now redundant if called from ngAfterViewInit, but good for safety
     const canvas = <HTMLCanvasElement>document.getElementById('EarningFlow');
     const ctx = canvas?.getContext('2d');
 
@@ -90,6 +91,7 @@ export class DashboardComponent implements OnInit {
   }
 
   createDonutchart(): void {
+    // This check is now redundant if called from ngAfterViewInit, but good for safety
     const canvas = <HTMLCanvasElement>document.getElementById('expensesChart');
     const ctx = canvas?.getContext('2d');
 
@@ -143,7 +145,12 @@ export class DashboardComponent implements OnInit {
   totalBalance: number = 0;
   chart!: Chart;
 
-  constructor(private router: Router, private expenseService: ExpenseService, private savingsService: SavingsService) {  
+  constructor(
+    private router: Router, 
+    private expenseService: ExpenseService, 
+    private savingsService: SavingsService,
+    @Inject(PLATFORM_ID) private platformId: Object // 1. Inject PLATFORM_ID
+  ) {   
     Chart.register(...registerables);
   }
 
@@ -163,8 +170,11 @@ export class DashboardComponent implements OnInit {
     this.updateLineChartData();
     this.updateRecentExpenses();
     this.updateExpensesByCategory();
-    this.createDonutchart();
-    this.createlinechart(); // Appeler la méthode pour créer le graphique en ligne
+
+    // 3. REMOVE chart creation from ngOnInit
+    // this.createDonutchart();
+    // this.createlinechart(); 
+
     this.expensesSubject.subscribe((expenses) => {
       this.expensesByCategory = expenses;
       if (this.donutchart) {
@@ -173,6 +183,15 @@ export class DashboardComponent implements OnInit {
         this.donutchart.update();
       }
     });
+  }
+
+  // 2. Add ngAfterViewInit hook
+  ngAfterViewInit(): void {
+    // 4. Wrap browser-only code in isPlatformBrowser check
+    if (isPlatformBrowser(this.platformId)) {
+      this.createDonutchart();
+      this.createlinechart();
+    }
   }
 
   calculateTotalBalance(): void {

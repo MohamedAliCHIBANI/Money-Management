@@ -1,22 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
+import { Component, OnInit, Inject, PLATFORM_ID, AfterViewInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common'; // Import CommonModule and isPlatformBrowser
+import { Chart, registerables } from 'chart.js/auto'; // Changed import path
 import { SavingsService } from '../services/savings.service';
 import { ExpenseService } from '../services/expenses.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-reports',
+  standalone: true, // Added standalone
+  imports: [CommonModule], // Added imports
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.css'],
 })
-export class ReportsComponent implements OnInit {
+export class ReportsComponent implements OnInit, AfterViewInit { // Implement AfterViewInit
   chart!: Chart;
   savingsAmount: number = 0;
   expensesByCategory: { category: string; amount: number }[] = [];
   private expensesSubject = new BehaviorSubject<{ category: string; amount: number }[]>([]);
 
-  constructor(private savingsService: SavingsService, private expenseService: ExpenseService) {
-    Chart.register(...registerables);
+  constructor(
+    private savingsService: SavingsService, 
+    private expenseService: ExpenseService,
+    @Inject(PLATFORM_ID) private platformId: Object // 1. Inject PLATFORM_ID
+  ) {
+    Chart.register(...registerables); // This line might be redundant now, but safe
   }
 
   ngOnInit(): void {
@@ -29,8 +36,8 @@ export class ReportsComponent implements OnInit {
     // Get expenses by category from the service
     this.updateExpensesByCategory();
 
-    // Create the chart after fetching the expenses
-    this.createPieChart();
+    // 3. REMOVE chart creation from ngOnInit
+    // this.createPieChart();
 
     // Subscribe to the expenses subject to update the chart
     this.expensesSubject.subscribe((expenses) => {
@@ -41,6 +48,14 @@ export class ReportsComponent implements OnInit {
         this.chart.update();
       }
     });
+  }
+
+  // 2. Add ngAfterViewInit hook
+  ngAfterViewInit(): void {
+    // 4. Wrap browser-only code in isPlatformBrowser check
+    if (isPlatformBrowser(this.platformId)) {
+      this.createPieChart();
+    }
   }
 
   // Method to update the savings in the chart
