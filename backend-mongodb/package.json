@@ -28,7 +28,7 @@
         "jest-junit",
         {
           "outputDirectory": "reports/junit",
-          "outputName": "backend-junit.xml"
+          "outputName": "junit.xml"
         }
       ]
     ]
