@@ -13,13 +13,13 @@ const UserSchema = mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Active', 'Inactive'], // Example status values, modify as needed
+        enum: ['Active', 'Inactive'],
         default: 'Active',
     },
     card: {
         cardType: {
             type: String,
-            enum: ['Credit', 'Debit', 'Prepaid'], // Example card types, modify as needed
+            enum: ['Credit', 'Debit', 'Prepaid'], 
             required: true,
         },
         cardNumber: {
