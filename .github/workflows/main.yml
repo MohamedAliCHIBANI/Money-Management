@@ -22,6 +22,9 @@ jobs:
         run: |
           cd backend-mongodb
           npm install
+          
+      - name: Ensure report directory exists
+        run: mkdir -p backend-mongodb/reports/junit
 
       - name: Run unit tests
         run: |
