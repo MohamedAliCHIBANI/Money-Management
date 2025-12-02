@@ -1,0 +1,35 @@
+name: Backend CI - Unit Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install backend dependencies
+        run: |
+          cd backend-mongodb
+          npm install
+
+      - name: Run unit tests
+        run: |
+          cd backend-mongodb
+          npm test
+
+      - name: Upload test report (JUnit)
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit-backend-report
+          path: backend-mongodb/reports/junit
