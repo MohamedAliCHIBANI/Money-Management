@@ -23,6 +23,9 @@ jobs:
           cd backend-mongodb
           npm install
 
+      - name: Ensure report directory exists
+        run: mkdir -p backend-mongodb/reports/junit
+
       - name: Run unit tests
         run: |
           cd backend-mongodb
@@ -32,4 +35,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: junit-backend-report
-          path: backend-mongodb/reports/junit
+          path: backend-mongodb/reports/junit/*.xml
+          if-no-files-found: warn
