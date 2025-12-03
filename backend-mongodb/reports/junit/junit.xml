@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="30" failures="0" errors="0" time="3.042">
+  <testsuite name="GET ALL INCOMES" errors="0" failures="0" skipped="0" timestamp="2025-12-02T20:12:56" time="1.911" tests="13">
+    <testcase classname="GET ALL INCOMES devrait retourner toutes les entrées pour l’utilisateur" name="GET ALL INCOMES devrait retourner toutes les entrées pour l’utilisateur" time="0.01">
+    </testcase>
+    <testcase classname="GET ALL INCOMES devrait retourner 500 si erreur Mongo" name="GET ALL INCOMES devrait retourner 500 si erreur Mongo" time="0.001">
+    </testcase>
+    <testcase classname="GET INCOME BY ID devrait retourner un income s’il appartient à l’utilisateur" name="GET INCOME BY ID devrait retourner un income s’il appartient à l’utilisateur" time="0.002">
+    </testcase>
+    <testcase classname="GET INCOME BY ID devrait retourner 404 si income inexistant" name="GET INCOME BY ID devrait retourner 404 si income inexistant" time="0.001">
+    </testcase>
+    <testcase classname="GET INCOME BY ID devrait retourner 403 si income appartient à un autre utilisateur" name="GET INCOME BY ID devrait retourner 403 si income appartient à un autre utilisateur" time="0.001">
+    </testcase>
+    <testcase classname="CREATE INCOME devrait créer un income" name="CREATE INCOME devrait créer un income" time="0.001">
+    </testcase>
+    <testcase classname="CREATE INCOME devrait retourner 400 si erreur validation" name="CREATE INCOME devrait retourner 400 si erreur validation" time="0">
+    </testcase>
+    <testcase classname="UPDATE INCOME devrait modifier un income appartenant au user" name="UPDATE INCOME devrait modifier un income appartenant au user" time="0">
+    </testcase>
+    <testcase classname="UPDATE INCOME devrait retourner 403 si user non propriétaire" name="UPDATE INCOME devrait retourner 403 si user non propriétaire" time="0.001">
+    </testcase>
+    <testcase classname="DELETE INCOME devrait supprimer un income appartenant au user" name="DELETE INCOME devrait supprimer un income appartenant au user" time="0.001">
+    </testcase>
+    <testcase classname="DELETE INCOME devrait retourner 404 si income absent" name="DELETE INCOME devrait retourner 404 si income absent" time="0.001">
+    </testcase>
+    <testcase classname="TOTAL INCOME CURRENT MONTH devrait retourner le total du mois" name="TOTAL INCOME CURRENT MONTH devrait retourner le total du mois" time="0.002">
+    </testcase>
+    <testcase classname="TOTAL INCOME CURRENT MONTH devrait retourner 0 si aucune donnée" name="TOTAL INCOME CURRENT MONTH devrait retourner 0 si aucune donnée" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="ADD EXPENCE" errors="0" failures="0" skipped="0" timestamp="2025-12-02T20:12:56" time="1.897" tests="4">
+    <testcase classname="ADD EXPENCE devrait créer une dépense avec user et date" name="ADD EXPENCE devrait créer une dépense avec user et date" time="0.01">
+    </testcase>
+    <testcase classname="ADD EXPENCE devrait retourner 400 en cas d’erreur" name="ADD EXPENCE devrait retourner 400 en cas d’erreur" time="0.002">
+    </testcase>
+    <testcase classname="GET ALL EXPENCES devrait retourner toutes les dépenses de l’utilisateur" name="GET ALL EXPENCES devrait retourner toutes les dépenses de l’utilisateur" time="0.002">
+    </testcase>
+    <testcase classname="TOTAL EXPENCES devrait retourner la somme totale des montants" name="TOTAL EXPENCES devrait retourner la somme totale des montants" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="ADD USER" errors="0" failures="0" skipped="0" timestamp="2025-12-02T20:12:56" time="2.056" tests="13">
+    <testcase classname="ADD USER devrait créer un utilisateur avec mot de passe hashé" name="ADD USER devrait créer un utilisateur avec mot de passe hashé" time="0.014">
+    </testcase>
+    <testcase classname="ADD USER devrait retourner 400 si données manquantes" name="ADD USER devrait retourner 400 si données manquantes" time="0.001">
+    </testcase>
+    <testcase classname="GET ALL USERS devrait retourner tous les utilisateurs" name="GET ALL USERS devrait retourner tous les utilisateurs" time="0.002">
+    </testcase>
+    <testcase classname="GET ALL USERS devrait retourner 400 si erreur Mongo" name="GET ALL USERS devrait retourner 400 si erreur Mongo" time="0.002">
+    </testcase>
+    <testcase classname="GET USER BY ID devrait retourner un utilisateur existant" name="GET USER BY ID devrait retourner un utilisateur existant" time="0.003">
+    </testcase>
+    <testcase classname="GET USER BY ID devrait retourner 404 si utilisateur inexistant" name="GET USER BY ID devrait retourner 404 si utilisateur inexistant" time="0.001">
+    </testcase>
+    <testcase classname="UPDATE USER devrait mettre à jour un utilisateur avec hash du mot de passe" name="UPDATE USER devrait mettre à jour un utilisateur avec hash du mot de passe" time="0.002">
+    </testcase>
+    <testcase classname="UPDATE USER devrait retourner 404 si utilisateur absent" name="UPDATE USER devrait retourner 404 si utilisateur absent" time="0.001">
+    </testcase>
+    <testcase classname="DELETE USER devrait supprimer un utilisateur existant" name="DELETE USER devrait supprimer un utilisateur existant" time="0.001">
+    </testcase>
+    <testcase classname="DELETE USER devrait retourner 404 si utilisateur absent" name="DELETE USER devrait retourner 404 si utilisateur absent" time="0.001">
+    </testcase>
+    <testcase classname="LOGIN USER devrait connecter l’utilisateur et générer un token" name="LOGIN USER devrait connecter l’utilisateur et générer un token" time="0.003">
+    </testcase>
+    <testcase classname="LOGIN USER devrait retourner 404 si utilisateur non trouvé" name="LOGIN USER devrait retourner 404 si utilisateur non trouvé" time="0.001">
+    </testcase>
+    <testcase classname="LOGIN USER devrait retourner 401 si mot de passe invalide" name="LOGIN USER devrait retourner 401 si mot de passe invalide" time="0.001">
+    </testcase>
+  </testsuite>
+</testsuites>

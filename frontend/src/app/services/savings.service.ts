@@ -88,4 +88,18 @@ export class SavingsService {
       })
     );
   }
+
+  // Fetch savings from backend (user profile)
+  fetchSavingsFromServer(): Observable<any> {
+    const token = sessionStorage.getItem('authToken');
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return this.http.get<any>(`${this.apiUrl.replace('/income', '/user')}/me`, { headers });
+  }
+
+  // Update savings on server
+  updateSavingsOnServer(newSavings: number) {
+    const token = sessionStorage.getItem('authToken');
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return this.http.put<any>(`${this.apiUrl.replace('/income', '/user')}/me`, { savings: newSavings }, { headers });
+  }
 }

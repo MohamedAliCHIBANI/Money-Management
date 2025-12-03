@@ -133,3 +133,41 @@ exports.loginUser = async (req, res) => {
         res.status(400).send(err);
     }
 };
+
+// Get the current authenticated user (without password)
+exports.getCurrentUser = async (req, res) => {
+    try {
+        const userId = req.user && req.user.id;
+        if (!userId) return res.status(401).send('Unauthorized');
+
+        const user = await User.findById(userId).select('-password');
+        if (!user) return res.status(404).send('User not found');
+
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};
+
+// Update the current authenticated user (allows updating profile and savings)
+exports.updateCurrentUser = async (req, res) => {
+    try {
+        const userId = req.user && req.user.id;
+        if (!userId) return res.status(401).send('Unauthorized');
+
+        const updatedData = { ...req.body };
+
+        // If password is being updated, hash it
+        if (updatedData.password) {
+            const saltRounds = 10;
+            updatedData.password = await bcrypt.hash(updatedData.password, saltRounds);
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(userId, updatedData, { new: true }).select('-password');
+        if (!updatedUser) return res.status(404).send('User not found');
+
+        res.status(200).json(updatedUser);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};

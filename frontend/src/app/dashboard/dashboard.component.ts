@@ -156,7 +156,19 @@ export class DashboardComponent implements OnInit, AfterViewInit { // Implement 
 
   ngOnInit(): void {
     this.loadTotalExpenses();
-    this.totalSavings = this.savingsService.getCurrentSavings();
+    // Load savings from server and populate service
+    this.savingsService.fetchSavingsFromServer().subscribe(
+      (res) => {
+        const serverSavings = res && res.savings ? res.savings : 0;
+        this.savingsService.updateSavings(serverSavings);
+        this.totalSavings = serverSavings;
+        this.calculateTotalBalance();
+      },
+      (err) => {
+        console.error('Error fetching savings from server:', err);
+        this.totalSavings = this.savingsService.getCurrentSavings();
+      }
+    );
     this.savingsService.fetchTotalIncomeForCurrentMonth().subscribe(
       (income) => {
         this.totalIncome = income;

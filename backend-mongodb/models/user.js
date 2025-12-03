@@ -38,6 +38,10 @@ const UserSchema = mongoose.Schema({
             required: true,
         },
     },
+    savings: {
+        type: Number,
+        default: 0,
+    },
 });
 
 // Export the model

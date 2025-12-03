@@ -3,6 +3,10 @@ const userController = require('../controllers/userController');
 const { authenticateToken } = require('../middleware/auth'); // Import middleware
 const router = express.Router();
 
+// Route to get or update the current authenticated user
+router.get('/me', authenticateToken, userController.getCurrentUser);
+router.put('/me', authenticateToken, userController.updateCurrentUser);
+
 // Get all users with authentication
 //router.get('/users', authenticateToken, userController.getAllUsers);
 

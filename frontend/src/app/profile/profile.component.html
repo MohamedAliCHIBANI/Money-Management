@@ -17,43 +17,48 @@
           />
         </div>
         <div class="form-group">
-          <label for="email">
-            <i class="fas fa-envelope"></i> Email
+          <label for="status">
+            <i class="fas fa-info-circle"></i> Statut
           </label>
-          <input
-            type="email"
-            id="email"
-            [(ngModel)]="email"
-            name="email"
-            placeholder="Enter your email"
-            required
-            [readonly]="!isEditMode"
-          />
+          <select id="status" [(ngModel)]="status" name="status" [disabled]="!isEditMode">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
         </div>
+
         <div class="form-group">
-          <label for="password">
-            <i class="fas fa-lock"></i> Password
+          <label for="cardType">
+            <i class="fas fa-credit-card"></i> Type de carte
           </label>
-          <div class="password-container">
-            <input
-              [type]="passwordVisible ? 'text' : 'password'"
-              id="password"
-              [(ngModel)]="password"
-              name="password"
-              placeholder="Enter your password"
-              required
-              [readonly]="!isEditMode"
-            />
-            <i
-              class="fas"
-              [ngClass]="{
-                'fa-eye-slash': !passwordVisible,
-                'fa-eye': passwordVisible
-              }"
-              (click)="togglePasswordVisibility()"
-              style="cursor: pointer"
-            ></i>
-          </div>
+          <input id="cardType" type="text" [(ngModel)]="cardType" name="cardType" placeholder="Credit/Debit" [readonly]="!isEditMode" />
+        </div>
+
+        <div class="form-group">
+          <label for="cardNumber">
+            <i class="fas fa-id-card"></i> Numéro de carte
+          </label>
+          <input id="cardNumber" type="text" [(ngModel)]="cardNumber" name="cardNumber" placeholder="1234123412341234" [readonly]="!isEditMode" />
+        </div>
+
+        <div class="form-group">
+          <label for="expireDate">
+            <i class="fas fa-calendar"></i> Date d'expiration (MM/YY)
+          </label>
+          <input id="expireDate" type="text" [(ngModel)]="expireDate" name="expireDate" placeholder="MM/YY" [readonly]="!isEditMode" />
+        </div>
+
+        <div class="form-group">
+          <label for="currency">
+            <i class="fas fa-money-bill-wave"></i> Devise
+          </label>
+          <input id="currency" type="text" [(ngModel)]="currency" name="currency" placeholder="USD" [readonly]="!isEditMode" />
+        </div>
+
+        <div class="form-group">
+          <label for="savings">
+            <i class="fas fa-piggy-bank"></i> Épargne
+          </label>
+          <input id="savings" type="number" [(ngModel)]="savings" name="savings" placeholder="0" [readonly]="!isEditMode" />
         </div>
         <button type="submit" class="btn-primary" *ngIf="isEditMode">Save</button>
       </form>
