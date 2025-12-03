@@ -41,18 +41,16 @@ jobs:
       - name: Verify JUnit report exists
         run: ls -l "$GITHUB_WORKSPACE/backend-mongodb/reports/junit"
 
-      - name: Send report to Xray
+      - name: Send report to Xray Cloud
         run: |
+          # Authenticate to Xray Cloud
           TOKEN=$(curl -s -H "Content-Type: application/json" \
             -X POST https://xray.cloud.getxray.app/api/v2/authenticate \
             -d "{\"client_id\":\"${{ secrets.XRAY_CLIENT_ID }}\",\"client_secret\":\"${{ secrets.XRAY_CLIENT_SECRET }}\"}")
 
+          # Send JUnit XML report to Xray
           curl -H "Content-Type: application/xml" \
                -H "Authorization: Bearer $TOKEN" \
                -X POST \
                "https://xray.cloud.getxray.app/api/v2/import/execution/junit" \
-               --data @"$GITHUB_WORKSPACE/backend-mongodb/reports/junit/report.xml"
-
-
-
-
+               --data @"$GITHUB_WORKSPACE/backend-mongodb/reports/junit/junit.xml"
