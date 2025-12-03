@@ -37,21 +37,22 @@ jobs:
           name: junit-backend-report
           path: backend-mongodb/reports/junit/*.xml
           if-no-files-found: warn
-      - name: Authenticate with Xray Cloud
-        id: xray-auth
+
+      - name: Verify JUnit report exists
+        run: ls -l "$GITHUB_WORKSPACE/backend-mongodb/reports/junit"
+
+      - name: Send report to Xray
         run: |
           TOKEN=$(curl -s -H "Content-Type: application/json" \
             -X POST https://xray.cloud.getxray.app/api/v2/authenticate \
             -d "{\"client_id\":\"${{ secrets.XRAY_CLIENT_ID }}\",\"client_secret\":\"${{ secrets.XRAY_CLIENT_SECRET }}\"}")
 
-          echo "token=$TOKEN" >> $GITHUB_OUTPUT
-
-      - name: Send report to Xray
-        run: |
           curl -H "Content-Type: application/xml" \
-               -H "Authorization: Bearer ${{ steps.xray-auth.outputs.token }}" \
+               -H "Authorization: Bearer $TOKEN" \
                -X POST \
-               https://xray.cloud.getxray.app/api/v2/import/execution/junit \
-               --data @$GITHUB_WORKSPACE/backend-mongodb/reports/junit/report.xml
+               "https://xray.cloud.getxray.app/api/v2/import/execution/junit" \
+               --data @"$GITHUB_WORKSPACE/backend-mongodb/reports/junit/report.xml"
+
+
 
 
