@@ -52,5 +52,6 @@ jobs:
                -H "Authorization: Bearer ${{ steps.xray-auth.outputs.token }}" \
                -X POST \
                https://xray.cloud.getxray.app/api/v2/import/execution/junit \
-               --data @backend-mongodb/reports/junit/report.xml
+               --data @$GITHUB_WORKSPACE/backend-mongodb/reports/junit/report.xml
+
 
