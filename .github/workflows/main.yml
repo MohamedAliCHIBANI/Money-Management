@@ -1,4 +1,4 @@
-name: Backend CI - Unit Tests (DEBUG Xray)
+name: Backend CI - Unit Tests
 
 on:
   push:
@@ -10,75 +10,82 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout du repo
+      # 1. Récupération du code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Node.js
+      # 2. Setup Node
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      # 3. Install deps
+      # 3. Installer dépendances
       - name: Install backend dependencies
         run: |
           cd backend-mongodb
           npm install
 
-      # 4. Créer dossier rapports
+      # 4. Créer dossier rapport JUnit
       - name: Ensure report directory exists
         run: mkdir -p backend-mongodb/reports/junit
 
-      # 5. Lancer tests
+      # 5. Lancer les tests
       - name: Run unit tests
         run: |
           cd backend-mongodb
           npm test
 
-      # 6. Vérifier fichiers générés
+      # 6. Vérification des rapports
       - name: Verify JUnit report exists
         run: |
-          echo "📂 Contenu du dossier reports/junit :"
-          ls -lah backend-mongodb/reports/junit || true
+          ls -lah backend-mongodb/reports/junit
+          head -n 10 backend-mongodb/reports/junit/junit.xml
 
-          echo "📄 Preview fichier junit.xml :"
-          head -n 20 backend-mongodb/reports/junit/junit.xml || true
-
-      # 7. Vérifier secrets (sans les afficher)
-      - name: Check secrets presence
-        run: |
-          if [ -z "${{ secrets.XRAY_CLIENT_ID }}" ]; then
-            echo "❌ XRAY_CLIENT_ID manquant"
-            exit 1
-          fi
-          if [ -z "${{ secrets.XRAY_CLIENT_SECRET }}" ]; then
-            echo "❌ XRAY_CLIENT_SECRET manquant"
-            exit 1
-          fi
-          echo "✅ Secrets présents"
-
-      # 8. Test de connexion Xray
-      - name: Authenticate to Xray Cloud (DEBUG)
+      # 7. Authentification Xray
+      - name: Authenticate to Xray Cloud
         run: |
           set -e
+          echo "Authentification Xray..."
 
-          echo "🔐 Authentification Xray Cloud..."
-          
-          curl -sv -H "Content-Type: application/json" \
+          curl -s \
+            -H "Content-Type: application/json" \
             -X POST https://xray.cloud.getxray.app/api/v2/authenticate \
             -d "{\"client_id\":\"${{ secrets.XRAY_CLIENT_ID }}\",\"client_secret\":\"${{ secrets.XRAY_CLIENT_SECRET }}\"}" \
-            -o /tmp/auth_response.json
+            -o /tmp/xray_token.json
 
-          echo "🧾 Réponse brute Xray AUTH :"
-          cat /tmp/auth_response.json
-
-          TOKEN=$(cat /tmp/auth_response.json | tr -d '"')
+          TOKEN=$(cat /tmp/xray_token.json | tr -d '"')
 
           if [ -z "$TOKEN" ]; then
-            echo "❌ TOKEN vide - échec authentification"
+            echo "❌ ERREUR : Token Xray vide"
             exit 1
           fi
 
-          echo "✅ Token reçu"
-          echo "$TOKEN" > /tmp/xray_token.txt_
+          echo "$TOKEN" > /tmp/xray_token.txt
+          echo "✅ Token Xray reçu"
+
+      # 8. Envoi du rapport JUnit à Xray
+      - name: Upload JUnit results to Xray (MMT)
+        run: |
+          set -e
+          TOKEN=$(cat /tmp/xray_token.txt)
+
+          echo "Upload vers Xray (projectKey=MMT)..."
+
+          curl --fail --retry 5 --retry-connrefused --retry-delay 3 \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Content-Type: application/xml" \
+            -X POST \
+            "https://xray.cloud.getxray.app/api/v2/import/execution/junit?projectKey=MMT" \
+            --data @"$GITHUB_WORKSPACE/backend-mongodb/reports/junit/junit.xml"
+
+          echo "✅ Import Xray terminé pour le projet MMT"
+
+      # 9. Sauvegarde du rapport JUnit comme artefact
+      - name: Upload JUnit as artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: junit-backend-report
+          path: backend-mongodb/reports/junit/*.xml
+          if-no-files-found: warn
