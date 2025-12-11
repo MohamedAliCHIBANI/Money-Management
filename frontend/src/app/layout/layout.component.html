@@ -1,13 +1,14 @@
 <div class="app-container">
   <app-header></app-header>
 
+  <button class="menu-toggle" type="button" aria-label="Toggle menu" (click)="toggleMenu()">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+
   <div class="main-content">
-    <app-menu class="menu">
-      <nav>
-        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-        <a routerLink="/expenses" routerLinkActive="active">Expenses</a>
-      </nav>
-    </app-menu>
+    <app-menu class="menu" [class.show]="menuOpen" [class.collapsed]="!menuOpen" (itemSelected)="closeMenu()"></app-menu>
 
     <div class="content-area">
       <router-outlet></router-outlet>

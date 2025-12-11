@@ -7,7 +7,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:money_management": "node dist/money_management/server/server.mjs"
+    "serve:ssr:money_management": "node dist/money_management/server/server.mjs",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:ci": "start-server-and-test start http://localhost:4200 cy:run"
   },
   "private": true,
   "dependencies": {
@@ -48,12 +51,15 @@
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
+    "cypress": "^13.13.3",
+    "cypress-mochawesome-reporter": "^3.8.2",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "start-server-and-test": "^2.0.7",
     "typescript": "~5.5.2"
   }
 }

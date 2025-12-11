@@ -5,8 +5,10 @@ header {
   background-color: #181B3A; /* Dark background color */
   margin: 0;
   width: 100%;
-  height: 100%;
   color: white; /* White text color */
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .logo {
@@ -21,11 +23,17 @@ header {
 }
 
 /* Search input container style */
+.search {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
 .search .input-container {
   display: flex; /* Flexbox to align input and icon horizontally */
   align-items: center; /* Vertically center the input and button */
-  width: 350px;
-  max-width: 300px; /* Max width for the search input */
+  width: 100%;
+  max-width: 360px; /* Max width for the search input */
   margin: 0 auto; /* Center the search bar */
   position: relative; /* For positioning the icon inside */
 }
@@ -58,6 +66,14 @@ header {
   font-size: 1.2rem; /* Icon size */
 }
 
+/* Actions aligned to the right */
+.actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 /* Notification icon style */
 .bi-bell {
   font-size: 1.5rem; /* Notification icon size */
@@ -67,11 +83,6 @@ header {
 /* Profile icon style */
 .fas.fa-user-circle {
   color: white; /* Profile icon color */
-}
-
-/* Spacing between notification and profile icons */
-.actions button {
-  margin-left: 50px; /* Increase the margin to space out the icons */
 }
 
 

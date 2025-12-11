@@ -3,5 +3,5 @@
 //environment.ts
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000' // URL Render backend
+  apiUrl: 'https://money-management-4d6w.onrender.com' // URL Render backend
 };
